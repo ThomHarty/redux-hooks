@@ -11,11 +11,17 @@ const Posts = () => {
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
+  const fetchData = () => {
+    dispatch({ type: PostTypes.GET_POSTS_REQUEST })
+    dispatch({ type: UserTypes.GET_USERS_REQUEST })
+  }
+
   useEffect(() => {
-      dispatch({ type: PostTypes.GET_POSTS_REQUEST })
-    }, [])
+    fetchData()
+  }, [])
 
   console.log('component level posts: ', posts)
+  console.log('component level users: ', users)
   return (
     <View></View>
   )
