@@ -1,12 +1,12 @@
 import { takeEvery, call, fork } from 'redux-saga/effects'
 import * as actions from '../actions/users'
 
-import { useUsersApiCall } from './api'
+import fetchUsers from '../api/users'
 
 function* getUsers() {
   try {
-    const result = yield call(useUsersApiCall)
-    console.log(result)
+    const result = yield call(fetchUsers)
+    console.log('users saga result: ', result)
   } catch {
 
   }
