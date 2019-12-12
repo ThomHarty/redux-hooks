@@ -6,7 +6,9 @@ import fetchPosts from '../api/posts'
 function* getPosts() {
   try {
     const result = yield call(fetchPosts)
-    console.log('posts saga result: ', result)
+    yield put(actions.getPostsSuccess({
+      posts: result
+    }))
   } catch {
 
   }
