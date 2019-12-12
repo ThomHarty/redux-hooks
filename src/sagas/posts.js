@@ -1,12 +1,12 @@
 import { takeEvery, call, fork } from 'redux-saga/effects'
 import * as actions from '../actions/posts'
 
-import { usePostsApiCall } from './api'
+import fetchPosts from '../api/posts'
 
 function* getPosts() {
   try {
-    const result = yield call(usePostsApiCall)
-    console.log(result)
+    const result = yield call(fetchPosts)
+    console.log('posts saga result: ', result)
   } catch {
 
   }
