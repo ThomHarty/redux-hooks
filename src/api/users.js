@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { url } from '../config'
+import { url } from './config'
 
 export default function useUsersApiCall() {
   const [users, setUsers] = useState([])
