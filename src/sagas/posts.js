@@ -1,4 +1,4 @@
-import { takeEvery, call, fork } from 'redux-saga/effects'
+import { takeEvery, call, fork, put } from 'redux-saga/effects'
 import * as actions from '../actions/posts'
 
 import fetchPosts from '../api/posts'

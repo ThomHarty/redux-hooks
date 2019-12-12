@@ -12,10 +12,10 @@ const Posts = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-      dispatch({ type: UserTypes.GET_USERS_REQUEST })
+      dispatch({ type: PostTypes.GET_POSTS_REQUEST })
     }, [])
 
-  console.log('component level users: ', users)
+  console.log('component level posts: ', posts)
   return (
     <View></View>
   )
