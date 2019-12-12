@@ -3,20 +3,24 @@ import { View } from 'react-native'
 
 import reducers from './reducers'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+
+import rootSaga from './sagas'
+import createSagaMiddleware from 'redux-saga'
 
 import {
   usePostsApiCall,
   useUsersApiCall,
 } from './api'
 
-const store = createStore(reducers)
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(reducers, applyMiddleware(sagaMiddleware))
+
+sagaMiddleware.run(rootSaga)
 
 const App = () => {
   const [posts] = usePostsApiCall()
   const [users] = useUsersApiCall()
-
-  console.log('store: ', store)
 
   return (
     <Provider store={store}>
