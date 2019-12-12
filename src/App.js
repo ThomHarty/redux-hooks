@@ -22,15 +22,15 @@ const App = () => {
 }
 
 const Posts = () => {
-  // const posts = useSelector(state => state.posts)
-  // const users = useSelector(state => state.users)
+  const posts = useSelector(state => state.posts)
+  const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
   useEffect(() => {
-      dispatch({ type: 'users/get_users_request' })
+      dispatch({ type: 'posts/get_posts_request' })
     }, [])
 
-  // console.log(posts)
+  console.log('component level posts: ', posts)
   return (
     <View></View>
   )
