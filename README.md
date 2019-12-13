@@ -1,4 +1,4 @@
-# redux-hooks
+# Posts Tech Test
 
 1. `git clone https://github.com/TomHarty/redux-hooks.git`
 
