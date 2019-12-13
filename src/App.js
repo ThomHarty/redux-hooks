@@ -5,6 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack'
 import Posts from './screens/Posts'
 import Post from './screens/Post'
 
+import { NetworkProvider } from 'react-native-offline'
+
 import reducers from './reducers'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
@@ -31,9 +33,11 @@ let Navigation = createAppContainer(AppNavigator)
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <Navigation />
-    </Provider>
+    <NetworkProvider>
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    </NetworkProvider>
   )
 }
 

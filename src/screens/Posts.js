@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 
+import { NetworkConsumer } from 'react-native-offline'
+
 import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native'
 
 import { Types as PostTypes } from '../actions/posts'
@@ -23,17 +25,25 @@ const Posts = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        {posts.map(post => (
-          <TouchableOpacity
-            key={post.id}
-            onPress={() => navigation.navigate('Post', {
-              post,
-              user: users.find(user => user.id === post.userId)
-            }
-          )}>
-            <Text>{post.title}</Text>
-          </TouchableOpacity>
-        ))}
+        <NetworkConsumer>
+          {({ isConnected }) => (
+            isConnected ? (
+              posts.map(post => (
+                <TouchableOpacity
+                  key={post.id}
+                  onPress={() => navigation.navigate('Post', {
+                    post,
+                    user: users.find(user => user.id === post.userId)
+                  }
+                )}>
+                  <Text>{post.title}</Text>
+                </TouchableOpacity>
+              ))
+            ) : (
+              <Text>Downloading posts is disabled since you are offline</Text>
+            )
+          )}
+        </NetworkConsumer>
       </ScrollView>
     </SafeAreaView>
   )
