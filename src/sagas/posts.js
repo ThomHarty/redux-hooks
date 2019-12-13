@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import { takeEvery, call, fork, put } from 'redux-saga/effects'
 import * as actions from '../actions/posts'
 
@@ -9,6 +10,7 @@ function* getPosts() {
     yield put(actions.getPostsSuccess({
       posts: result
     }))
+    yield AsyncStorage.setItem('@stored_posts', JSON.stringify(result))
   } catch {
 
   }

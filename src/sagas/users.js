@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import { takeEvery, call, fork, put } from 'redux-saga/effects'
 import * as actions from '../actions/users'
 
@@ -9,6 +10,7 @@ function* getUsers() {
     yield put(actions.getUsersSuccess({
       users: result
     }))
+    yield AsyncStorage.setItem('@stored_users', JSON.stringify(result))
   } catch {
 
   }
