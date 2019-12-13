@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 
-import { SafeAreaView, ScrollView, Text, Button } from 'react-native'
+import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native'
 
 import { Types as PostTypes } from '../actions/posts'
 import { Types as UserTypes } from '../actions/users'
@@ -24,7 +24,15 @@ const Posts = ({ navigation }) => {
     <SafeAreaView>
       <ScrollView>
         {posts.map(post => (
-          <Text key={post.id}>{post.title}</Text>
+          <TouchableOpacity
+            key={post.id}
+            onPress={() => navigation.navigate('Post', {
+              post,
+              user: users.find(user => user.id === post.userId)
+            }
+          )}>
+            <Text>{post.title}</Text>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </SafeAreaView>
