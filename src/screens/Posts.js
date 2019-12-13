@@ -4,7 +4,8 @@ import { Provider, useSelector, useDispatch } from 'react-redux'
 import AsyncStorage from '@react-native-community/async-storage'
 import { NetworkConsumer } from 'react-native-offline'
 
-import { SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { Container, Card, Heading } from '../ui'
 
 import { Types as PostTypes } from '../actions/posts'
 import { Types as UserTypes } from '../actions/users'
@@ -40,37 +41,47 @@ const Posts = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <NetworkConsumer>
-          {({ isConnected }) => (
-            isConnected ? (
-              posts.map(post => (
-                <TouchableOpacity
-                  key={post.id}
-                  onPress={() => navigation.navigate('Post', {
-                    post,
-                    user: users.find(user => user.id === post.userId)
-                  }
-                )}>
-                  <Text>{post.title}</Text>
-                </TouchableOpacity>
-              ))
-            ) : (
-              storedPosts && storedUsers ? (
-                storedPosts.map(post => (
+        <Container>
+          <NetworkConsumer>
+            {({ isConnected }) => (
+              isConnected ? (
+                posts.map(post => (
                   <TouchableOpacity
                     key={post.id}
                     onPress={() => navigation.navigate('Post', {
                       post,
-                      user: storedUsers.find(user => user.id === post.userId)
+                      user: users.find(user => user.id === post.userId)
                     }
                   )}>
-                    <Text>{post.title}</Text>
+                    <Card>
+                      <Heading text={post.title} />
+                    </Card>
                   </TouchableOpacity>
                 ))
-              ) : <Text>You can use this app offline once you have connected to WiFi once :)</Text>
-            )
-          )}
-        </NetworkConsumer>
+              ) : (
+                storedPosts && storedUsers ? (
+                  storedPosts.map(post => (
+                    <TouchableOpacity
+                      key={post.id}
+                      onPress={() => navigation.navigate('Post', {
+                        post,
+                        user: storedUsers.find(user => user.id === post.userId)
+                      }
+                    )}>
+                      <Card>
+                        <Heading text={post.title} />
+                      </Card>
+                    </TouchableOpacity>
+                  ))
+                ) : (
+                  <Card>
+                    <Paragraph text={`You can use this app offline once you have connected to WiFi once :)`} />
+                  </Card>
+                )
+              )
+            )}
+          </NetworkConsumer>
+        </Container>
       </ScrollView>
     </SafeAreaView>
   )

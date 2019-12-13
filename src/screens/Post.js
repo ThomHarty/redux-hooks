@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { SafeAreaView, Text, ScrollView } from 'react-native'
+import { Container, Card, Heading, Paragraph, Author } from '../ui'
 
 const Post = ({ navigation }) => {
   const post = navigation.getParam('post')
@@ -9,9 +10,13 @@ const Post = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Text>{post.title}</Text>
-        <Text>{post.body}</Text>
-        <Text>{user.name}</Text>
+        <Container>
+          <Card>
+            <Heading text={post.title} />
+            <Paragraph text ={post.body} />
+            <Author text={`- ${user.name}`} />
+          </Card>
+        </Container>
       </ScrollView>
     </SafeAreaView>
   )
